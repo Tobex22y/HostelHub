@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOUESTI - Secure Bed Space</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+      <link
+      rel="icon"
+      href="../assets/images/bouestilogo.png"
+      type="image/png"
+    />
+</head>
+<body>
+    <header>
+        <button onclick="window.history.back()" style="background: none; border: none; cursor: pointer; color: var(--primary-green); font-weight: bold;">&larr; Back to Halls</button>
+        <div style="text-align: right;">
+            <div id="timer" style="color: var(--accent-orange); font-weight: bold; font-size: 18px;">15:00</div>
+            <small style="text-transform: uppercase; font-size: 9px; color: gray;">Session Expires</small>
+        </div>
+    </header>
+
+    <main style="padding: 40px;">
+        <h1 id="hall-title">Secure Bed Space</h1>
+        <p class="subtitle">Select your preferred bed to lock it for allocation.</p>
+
+        <div class="grid-container" id="room-grid">
+            </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: white; border-radius: 15px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h4 style="margin: 0;">Allocation Policy</h4>
+                <p style="font-size: 12px; color: gray; margin: 5px 0 0 0;">Once locked, you have 15 minutes to pay.</p>
+            </div>
+            <button class="btn-primary" style="width: auto; padding: 15px 40px;" onclick="window.location.href='payment.html'">Proceed to Review &rarr;</button>
+        </div>
+    </main>
+
+    <script>
+        const hallId = localStorage.getItem('selectedHall') || 'C1';
+        
+        // Sample Room Data
+        const rooms = [
+            { no: '201', type: 'Deluxe', beds: [{id: 'A', status: 'available'}, {id: 'B', status: 'available'}] },
+            { no: '202', type: 'Premium', beds: [{id: 'A', status: 'available'}, {id: 'B', status: 'available'}] },
+            { no: '203', type: 'Standard', beds: [{id: 'A', status: 'available'}, {id: 'B', status: 'available'}] },
+            { no: '204', type: 'Standard', beds: [{id: 'A', status: 'occupied'}, {id: 'B', status: 'available'}] }
+        ];
+
+        function loadRooms() {
+            document.getElementById('hall-title').innerText = `Secure Bed Space - Hall ${hallId}`;
+            const grid = document.getElementById('room-grid');
+
+            grid.innerHTML = rooms.map(room => `
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <h3>Room ${room.no}</h3>
+                        <span class="tag" style="background:#f1f5f9;">${room.type}</span>
+                    </div>
+                    <div class="bed-grid">
+                        ${room.beds.map(bed => `
+                            <div class="bed ${bed.status}" onclick="selectBed(this, '${room.no}${bed.id}')">
+                                <small style="display:block; margin-bottom:5px;">🛏️</small>
+                                <strong>Bed ${bed.id}</strong>
+                                <small style="display:block; font-size:9px; margin-top:5px;">${bed.status.toUpperCase()}</small>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectBed(element, bedCode) {
+            if (element.classList.contains('occupied')) return;
+            
+            // Remove selection from all others
+            document.querySelectorAll('.bed').forEach(b => b.classList.remove('selected'));
+            // Add to current
+            element.classList.add('selected');
+            console.log("Selected Bed: " + bedCode);
+        }
+
+        window.onload = loadRooms;
+    </script>
+</body>
+</html>

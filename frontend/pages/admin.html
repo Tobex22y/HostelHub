@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="icon" href="../assets/images/bouestilogo.png" type="image/png" />
+  </head>
+  <body>
+      <header>
+        <div class="header-content">
+          <div class="logo-section">
+            <div class="logo-placeholder">
+              <img src="../assets/images/bouestilogo.png" alt="" />
+            </div>
+          </div>
+          <div class="header-text">
+            <h1>Bouesti Hostel Management System</h1>
+            <p>Admin login and management area.</p>
+          </div>
+        </div>
+        <p class="nav-note">
+          Go back to <a href="index.html">student portal</a>.
+        </p>
+      </header>
+
+      <main>
+        <section id="adminAuth" class="card">
+          <div class="form-panel">
+            <h2 class="form-header">Admin Login</h2>
+            <label class="label-name">Username</label>
+            <input
+              id="adminIdentifier"
+              type="text"
+              placeholder="Username or Email"
+            />
+            <label class="label-name">Password</label>
+            <input id="adminPassword" type="password" placeholder="Password" />
+            <button id="adminLoginBtn">Login</button>
+            <div id="adminStatus" class="status hidden"></div>
+          </div>
+        </section>
+
+        <section id="adminPanel" class="card hidden">
+          <div class="student-header">
+            <div>
+              <h2>Welcome, <span id="adminName"></span></h2>
+              <p id="adminRole"></p>
+            </div>
+            <button id="adminLogoutBtn" class="small-button">Logout</button>
+          </div>
+          <p>
+            Admin functionality is available after login. You can add view pages
+            for allocations, payments, rooms, and students here.
+          </p>
+        </section>
+      </main>
+
+    <script src="../assets/js/admin.js"></script>
+  </body>
+</html>

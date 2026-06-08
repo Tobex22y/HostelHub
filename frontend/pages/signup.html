@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BOUESTI Portal - Sign Up</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="icon" href="../assets/images/bouestilogo.png" type="image/png" />
+  </head>
+  <body>
+    <header>
+      <div class="logo_container">
+        <img src="../assets/images/bouestilogo.png" alt="" id="logo" />
+        <p>HostelHub</p>
+      </div>
+
+      <div class="nav-links">
+        <a href="login.html">Student Login</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="admin-login.html">Admin Login</a>
+      </div>
+    </header>
+
+    <section class="signup_section">
+      <div class="main-wrapper">
+        <div class="auth-card">
+          <h1>Create Account</h1>
+          <p class="subtitle">Join the residential community.</p>
+
+          <form id="signupForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input
+                id="signupName"
+                type="text"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Matric Number</label>
+              <input
+                id="signupMatric"
+                type="text"
+                placeholder="CSC/2022/5151"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                id="signupEmail"
+                type="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input
+                id="signupPhone"
+                type="tel"
+                placeholder="08012345678"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="label-name">Faculty</label>
+              <select id="signupFaculty" required>
+                <option value="">Select Faculty</option>
+                <option value="Faculty of Science">Faculty of Science</option>
+                <option value="Faculty of Engineering">
+                  Faculty of Engineering
+                </option>
+                <option value="Faculty of Arts">Faculty of Arts</option>
+                <option value="Faculty of Social Sciences">
+                  Faculty of Social Sciences
+                </option>
+                <option value="Faculty of Education">
+                  Faculty of Education
+                </option>
+                <option value="Faculty of Management Sciences">
+                  Faculty of Management Sciences
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Department</label>
+              <input
+                id="signupDepartment"
+                type="text"
+                placeholder="Computer Science"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="label-name">Academic Level</label>
+              <select id="signupLevel" required>
+                <option value="">Select Level</option>
+                <option value="100 Level">100 Level</option>
+                <option value="200 Level">200 Level</option>
+                <option value="300 Level">300 Level</option>
+                <option value="400 Level">400 Level</option>
+                <option value="500 Level">500 Level</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="label-name">Gender</label>
+              <select id="signupGender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Profile Picture</label>
+              <input id="signupPicture" type="file" accept="image/*" required />
+              <small style="color: var(--text-gray); font-size: 12px"
+                >Upload a clear photo of yourself (JPG, PNG, max 2MB)</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input id="signupPassword" type="password" required />
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input id="signupConfirm" type="password" required />
+            </div>
+
+            <button type="submit" class="btn-primary">Register Now</button>
+          </form>
+
+          <div class="footer-link">
+            Already registered? <a href="login.html">Sign In</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const fullName = document.getElementById("signupName").value.trim();
+          const matricNumber = document
+            .getElementById("signupMatric")
+            .value.trim();
+          const email = document.getElementById("signupEmail").value.trim();
+          const phone = document.getElementById("signupPhone").value.trim();
+          const faculty = document.getElementById("signupFaculty").value;
+          const department = document
+            .getElementById("signupDepartment")
+            .value.trim();
+          const academicLevel = document.getElementById("signupLevel").value;
+          const gender = document.getElementById("signupGender").value;
+          const profilePicture =
+            document.getElementById("signupPicture").files[0];
+          const password = document.getElementById("signupPassword").value;
+          const confirmPassword =
+            document.getElementById("signupConfirm").value;
+
+          if (
+            !fullName ||
+            !matricNumber ||
+            !email ||
+            !phone ||
+            !faculty ||
+            !department ||
+            !academicLevel ||
+            !gender ||
+            !password ||
+            !confirmPassword
+          ) {
+            alert("Please complete all fields before registering.");
+            return;
+          }
+
+          if (!profilePicture) {
+            alert("Please upload a profile picture.");
+            return;
+          }
+
+          // Check file size (max 2MB)
+          if (profilePicture.size > 2 * 1024 * 1024) {
+            alert("Profile picture must be less than 2MB.");
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+          }
+
+          // Create FormData for file upload
+          const formData = new FormData();
+          formData.append("full_name", fullName);
+          formData.append("matric_number", matricNumber);
+          formData.append("email", email);
+          formData.append("phone", phone);
+          formData.append("faculty", faculty);
+          formData.append("department", department);
+          formData.append("academic_level", academicLevel);
+          formData.append("gender", gender);
+          formData.append("profile_picture", profilePicture);
+          formData.append("password", password);
+          formData.append("confirm_password", confirmPassword);
+
+          try {
+            const response = await fetch("../api/signup.php", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+            if (!response.ok || !result.success) {
+              alert(result.message || "Registration failed.");
+              return;
+            }
+
+            alert(result.message || "Registration successful.");
+            window.location.href = "login.html";
+          } catch (err) {
+            console.error(err);
+            alert("Failed to register. Please try again later.");
+          }
+        });
+    </script>
+  </body>
+</html>

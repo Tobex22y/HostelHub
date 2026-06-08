@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOUESTI - Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+      <link
+      rel="icon"
+      href="../assets/images/bouestilogo.png"
+      type="image/png"
+    />
+</head>
+<body>
+    <section class="dashboard_section">
+        <div class="wrapper">
+              <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>BOUESTI</h2>
+            <small>HostelHub</small>
+        </div>
+
+        <div class="welcome-user">
+            <div class="avatar" id="sidebar-avatar">S</div>
+            <div>
+                <strong id="sidebar-name">Loading...</strong>
+                <small>Student</small>
+            </div>
+        </div>
+
+        <div class="nav-menu">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="#">Profile</a>
+            <a href="rooms.html">Book Hostel</a>
+            <a href="#">Payments</a>
+            <a href="#">My Bookings</a>
+            <a href="#">Reports</a>
+            <a href="#">Settings</a>
+        </div>
+    </div>
+
+    <!-- Main Area -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div>
+                <h3>Dashboard</h3>
+            </div>
+            <div  style="display: flex; align-items: center; gap: 20px;">
+                <input type="text" placeholder="Search halls or rooms..." style="padding: 10px 16px; width: 320px; border: 1px solid #ddd; border-radius: 30px;">
+                <div id="top-avatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;">S</div>
+                <strong id="top-name">Loading...</strong>
+            </div>
+        </div>
+
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 id="welcome-message" style="font-size: 2.4rem;">Welcome Back, Student</h1>
+            <p>Manage your accommodation easily</p>
+        </div>
+
+        <!-- Profile Summary -->
+        <div class="profile-section">
+            <div id="profile-box">
+                <div id="profile-avatar" class="avatar" style="width: 140px; height: 140px; margin: 0 auto 1rem; font-size: 3.5rem; border: 5px solid #10b981;">S</div>
+                <h3 id="profile-name">Loading...</h3>
+                <p id="profile-matric" style="color: #10b981; font-weight: 600;"></p>
+                <button onclick="showUpdateModal()" style="margin-top: 10px; padding: 8px 20px; background: #10b981; color: white; border: none; border-radius: 8px;">Edit Profile</button>
+            </div>
+
+            <div style="flex: 1;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div><strong>Gender:</strong> <span id="profile-gender">Loading...</span></div>
+                    <div><strong>Level:</strong> <span id="profile-level">Loading...</span></div>
+                    <div><strong>Faculty:</strong> <span id="profile-faculty">Loading...</span></div>
+                    <div><strong>Department:</strong> <span id="profile-dept">Loading...</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats & Halls -->
+        <div class="stats-grid">
+            <div class="card">
+                <h4>Available Bed Spaces</h4>
+                <h2 style="color: #10b981; font-size: 2.8rem;" id="total-beds">0</h2>
+            </div>
+            <div class="card">
+                <h4>My Current Booking</h4>
+                <p id="current-booking">No active booking</p>
+            </div>
+        </div>
+
+        <div class="hall-grid" id="hall-summary">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+
+        </div>
+    </section>
+
+  
+    <!-- Update Profile Modal (Same as before) -->
+    <!-- ... (Include the modal code from previous response) ... -->
+
+    <script>
+        // Paste your full existing script here and update the functions as needed
+        // Especially updateStudentProfile() to work with new IDs
+
+        function updateStudentProfile(student) {
+            if (!student) return;
+            currentStudent = student;
+
+            document.getElementById('welcome-message').textContent = `Welcome Back, ${student.full_name ? student.full_name.split(' ')[0] : 'Student'}`;
+            document.getElementById('sidebar-name').textContent = student.full_name || 'Student';
+            document.getElementById('top-name').textContent = student.full_name || 'Student';
+            document.getElementById('profile-name').textContent = student.full_name || 'Student';
+            document.getElementById('profile-matric').textContent = student.matric || student.matric_number || 'N/A';
+            document.getElementById('profile-gender').textContent = student.gender || 'N/A';
+            document.getElementById('profile-level').textContent = student.academic_level || 'N/A';
+            document.getElementById('profile-faculty').textContent = student.faculty || 'N/A';
+            document.getElementById('profile-dept').textContent = student.department || 'N/A';
+
+            // Update avatars
+            const avatarText = (student.full_name || 'S').charAt(0).toUpperCase();
+            ['sidebar-avatar', 'top-avatar', 'profile-avatar'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = avatarText;
+            });
+        }
+
+        // Keep your existing initializeDashboard(), showUpdateModal(), etc.
+    </script>
+</body>
+</html>
