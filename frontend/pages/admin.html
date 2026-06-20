@@ -1,62 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-    <link rel="icon" href="../assets/images/bouestilogo.png" type="image/png" />
-  </head>
-  <body>
-      <header>
-        <div class="header-content">
-          <div class="logo-section">
-            <div class="logo-placeholder">
-              <img src="../assets/images/bouestilogo.png" alt="" />
-            </div>
-          </div>
-          <div class="header-text">
-            <h1>Bouesti Hostel Management System</h1>
-            <p>Admin login and management area.</p>
-          </div>
-        </div>
-        <p class="nav-note">
-          Go back to <a href="index.html">student portal</a>.
-        </p>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - HostelHub</title>
 
-      <main>
-        <section id="adminAuth" class="card">
-          <div class="form-panel">
-            <h2 class="form-header">Admin Login</h2>
-            <label class="label-name">Username</label>
-            <input
-              id="adminIdentifier"
-              type="text"
-              placeholder="Username or Email"
-            />
-            <label class="label-name">Password</label>
-            <input id="adminPassword" type="password" placeholder="Password" />
-            <button id="adminLoginBtn">Login</button>
-            <div id="adminStatus" class="status hidden"></div>
-          </div>
-        </section>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
 
-        <section id="adminPanel" class="card hidden">
-          <div class="student-header">
-            <div>
-              <h2>Welcome, <span id="adminName"></span></h2>
-              <p id="adminRole"></p>
-            </div>
-            <button id="adminLogoutBtn" class="small-button">Logout</button>
-          </div>
-          <p>
-            Admin functionality is available after login. You can add view pages
-            for allocations, payments, rooms, and students here.
-          </p>
-        </section>
-      </main>
+<body>
 
-    <script src="../assets/js/admin.js"></script>
-  </body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <h2>HostelHub</h2>
+      <p>Admin Panel</p>
+    </div>
+
+    <nav>
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Rooms</a>
+      <a href="#">Students</a>
+      <a href="#">Payments</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <header class="topbar">
+      <h1>Dashboard Overview</h1>
+      <p>Manage rooms, students and payments</p>
+    </header>
+
+    <!-- STATS -->
+    <section class="stats">
+
+      <div class="card">
+        <h3>Total Rooms</h3>
+        <p id="totalRooms">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Beds</h3>
+        <p id="totalBeds">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Occupied Beds</h3>
+        <p id="occupiedBeds">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Available Beds</h3>
+        <p id="availableBeds">0</p>
+      </div>
+
+    </section>
+
+    <!-- CREATE ROOM -->
+    <section class="panel">
+
+      <h2>Create New Room</h2>
+
+      <div class="form-grid">
+        <input id="roomNumber" placeholder="Room Number">
+        <input id="roomType" placeholder="Room Type">
+        <input id="capacity" type="number" placeholder="Bed Capacity">
+        <input id="price" type="number" placeholder="Price">
+
+        <button onclick="createRoom()">Create Room</button>
+      </div>
+
+    </section>
+
+    <div id="requests"></div>
+
+    <div class="panel danger">
+  <h2>Danger Zone</h2>
+  <button onclick="resetDB()">Reset Entire System</button>
+</div>
+
+  </main>
+
+</div>
+
+<script src="../assets/js/admin.js"></script>
+
+</body>
 </html>

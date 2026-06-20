@@ -1,13 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>BOUESTI Portal - Login</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="icon" href="../assets/images/bouestilogo.png" type="image/png">
-</head>
-<body>
-
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="icon" href="../assets/images/bouestilogo.png" type="image/png" />
+  </head>
+  <body>
     <header>
       <div class="logo_container">
         <img src="../assets/images/bouestilogo.png" alt="" id="logo" />
@@ -22,69 +21,36 @@
     </header>
 
     <section>
-
-   
-    <div class="main-wrapper">
+      <div class="main-wrapper">
         <div class="auth-card">
-            <h1>Welcome Back</h1>
-            <p class="subtitle">Enter your matric number to access the hostel portal.</p>
+          <h1>Welcome Back</h1>
+          <p class="subtitle">
+            Enter your matric number to access the hostel portal.
+          </p>
 
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Matric Number</label>
-                    <input type="text" id="matric" placeholder="BST/2023/XXXX" required>
-                    <label>Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                
-                <button type="submit" class="btn-primary">Sign In &rarr;</button>
-            </form>
-
-            <div class="footer-link">
-                New student? <a href="signup.html">Create an account</a>
+          <form id="loginForm">
+            <div class="form-group">
+              <label>Matric Number</label>
+              <input
+                type="text"
+                id="loginMatric"
+                placeholder="BST/2023/XXXX"
+                required
+              />
+              <label>Password</label>
+              <input type="password" id="loginPassword" required />
             </div>
+
+            <button type="submit" class="btn-primary">Log In &rarr;</button>
+          </form>
+
+          <div class="footer-link">
+            New student? <a href="signup.html">Create an account</a>
+          </div>
         </div>
-    </div>
-     </section>
+      </div>
+    </section>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const matricVal = document.getElementById('matric').value.trim();
-            const passwordVal = document.getElementById('password').value;
-
-            if (!matricVal || !passwordVal) {
-                alert('Please enter your matric number and password.');
-                return;
-            }
-
-            try {
-                const response = await fetch('../api/login.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    credentials: 'include',
-                    body: new URLSearchParams({ identifier: matricVal, password: passwordVal })
-                });
-
-                const result = await response.json();
-
-                if (!response.ok || !result.success) {
-                    alert(result.message || 'Invalid matric number or password.');
-                    return;
-                }
-
-                // Store student data for dashboard use
-                if (result.data) {
-                    localStorage.setItem('student_data', JSON.stringify(result.data));
-                }
-
-                window.location.href = 'dashboard.html';
-            } catch (error) {
-                console.error(error);
-                alert('Login failed. Please try again later.');
-            }
-        });
-    </script>
-</body>
+    <script src="../assets/js/login.js"></script>
+  </body>
 </html>

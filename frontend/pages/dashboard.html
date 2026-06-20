@@ -1,134 +1,410 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BOUESTI - Dashboard</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
-      <link
-      rel="icon"
-      href="../assets/images/bouestilogo.png"
-      type="image/png"
-    />
-</head>
-<body>
-    <section class="dashboard_section">
-        <div class="wrapper">
-              <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo">
-            <h2>BOUESTI</h2>
-            <small>HostelHub</small>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <div class="welcome-user">
-            <div class="avatar" id="sidebar-avatar">S</div>
-            <div>
-                <strong id="sidebar-name">Loading...</strong>
-                <small>Student</small>
-            </div>
-        </div>
+    <title>Student Dashboard | HostelHub</title>
 
-        <div class="nav-menu">
-            <a href="dashboard.html" class="active">Dashboard</a>
-            <a href="#">Profile</a>
-            <a href="rooms.html">Book Hostel</a>
-            <a href="#">Payments</a>
-            <a href="#">My Bookings</a>
-            <a href="#">Reports</a>
-            <a href="#">Settings</a>
-        </div>
-    </div>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    <!-- Main Area -->
-    <div class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div>
-                <h3>Dashboard</h3>
-            </div>
-            <div  style="display: flex; align-items: center; gap: 20px;">
-                <input type="text" placeholder="Search halls or rooms..." style="padding: 10px 16px; width: 320px; border: 1px solid #ddd; border-radius: 30px;">
-                <div id="top-avatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;">S</div>
-                <strong id="top-name">Loading...</strong>
-            </div>
-        </div>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f3f4f6;
+        display: flex;
+      }
 
-        <!-- Dashboard Header -->
-        <div class="dashboard-header">
-            <h1 id="welcome-message" style="font-size: 2.4rem;">Welcome Back, Student</h1>
-            <p>Manage your accommodation easily</p>
-        </div>
+      /* Sidebar */
+      .sidebar {
+        width: 240px;
+        height: 100vh;
+        background: #111827;
+        color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding: 25px 15px;
+      }
 
-        <!-- Profile Summary -->
-        <div class="profile-section">
-            <div id="profile-box">
-                <div id="profile-avatar" class="avatar" style="width: 140px; height: 140px; margin: 0 auto 1rem; font-size: 3.5rem; border: 5px solid #10b981;">S</div>
-                <h3 id="profile-name">Loading...</h3>
-                <p id="profile-matric" style="color: #10b981; font-weight: 600;"></p>
-                <button onclick="showUpdateModal()" style="margin-top: 10px; padding: 8px 20px; background: #10b981; color: white; border: none; border-radius: 8px;">Edit Profile</button>
-            </div>
+      .logo {
+        text-align: center;
+        margin-bottom: 30px;
+      }
 
-            <div style="flex: 1;">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-                    <div><strong>Gender:</strong> <span id="profile-gender">Loading...</span></div>
-                    <div><strong>Level:</strong> <span id="profile-level">Loading...</span></div>
-                    <div><strong>Faculty:</strong> <span id="profile-faculty">Loading...</span></div>
-                    <div><strong>Department:</strong> <span id="profile-dept">Loading...</span></div>
-                </div>
-            </div>
-        </div>
+      .logo h2 {
+        color: #3b82f6;
+      }
 
-        <!-- Stats & Halls -->
-        <div class="stats-grid">
-            <div class="card">
-                <h4>Available Bed Spaces</h4>
-                <h2 style="color: #10b981; font-size: 2.8rem;" id="total-beds">0</h2>
-            </div>
-            <div class="card">
-                <h4>My Current Booking</h4>
-                <p id="current-booking">No active booking</p>
-            </div>
-        </div>
+      .nav-link {
+        display: block;
+        padding: 12px 15px;
+        margin-bottom: 8px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: 0.3s;
+      }
 
-        <div class="hall-grid" id="hall-summary">
-            <!-- Populated by JavaScript -->
-        </div>
-    </div>
+      .nav-link:hover,
+      .nav-link.active {
+        background: #2563eb;
+      }
 
-        </div>
-    </section>
+      /* Main */
+      .main {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+        padding: 25px;
+      }
 
-  
-    <!-- Update Profile Modal (Same as before) -->
-    <!-- ... (Include the modal code from previous response) ... -->
+      /* Topbar */
+      .topbar {
+        background: white;
+        border-radius: 12px;
+        padding: 15px 20px;
 
-    <script>
-        // Paste your full existing script here and update the functions as needed
-        // Especially updateStudentProfile() to work with new IDs
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        function updateStudentProfile(student) {
-            if (!student) return;
-            currentStudent = student;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      }
 
-            document.getElementById('welcome-message').textContent = `Welcome Back, ${student.full_name ? student.full_name.split(' ')[0] : 'Student'}`;
-            document.getElementById('sidebar-name').textContent = student.full_name || 'Student';
-            document.getElementById('top-name').textContent = student.full_name || 'Student';
-            document.getElementById('profile-name').textContent = student.full_name || 'Student';
-            document.getElementById('profile-matric').textContent = student.matric || student.matric_number || 'N/A';
-            document.getElementById('profile-gender').textContent = student.gender || 'N/A';
-            document.getElementById('profile-level').textContent = student.academic_level || 'N/A';
-            document.getElementById('profile-faculty').textContent = student.faculty || 'N/A';
-            document.getElementById('profile-dept').textContent = student.department || 'N/A';
+      .logout-btn {
+        background: #dc2626;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
 
-            // Update avatars
-            const avatarText = (student.full_name || 'S').charAt(0).toUpperCase();
-            ['sidebar-avatar', 'top-avatar', 'profile-avatar'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = avatarText;
-            });
+      .logout-btn:hover {
+        background: #b91c1c;
+      }
+
+      /* Stats */
+      .stats-grid {
+        margin-top: 20px;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .card h3 {
+        color: #374151;
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2563eb;
+      }
+
+      /* Dashboard layout */
+
+      .dashboard-grid {
+        margin-top: 20px;
+
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+
+      /* Sections */
+
+      .section,
+      .side-panel {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .section h2,
+      .side-panel h2 {
+        margin-bottom: 15px;
+      }
+
+      /* Room cards */
+
+      .room-card {
+        background: #f9fafb;
+        border-left: 5px solid #2563eb;
+
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+
+      .room-card h3 {
+        margin-bottom: 10px;
+      }
+
+      .room-info {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 10px 0;
+      }
+
+      .badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .available {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .occupied {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      /* Buttons */
+
+      .action-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .action-btn:hover {
+        opacity: 0.9;
+      }
+
+      /* Allocation */
+
+      .allocation-card {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+
+        color: white;
+        border-radius: 12px;
+        padding: 15px;
+      }
+
+      .allocation-item {
+        background: rgba(255, 255, 255, 0.15);
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: #6b7280;
+        padding: 20px;
+      }
+
+      /* Modal */
+
+      .modal {
+        display: none;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background: rgba(0, 0, 0, 0.5);
+
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        width: 450px;
+        max-height: 80vh;
+        overflow: auto;
+
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .close {
+        float: right;
+        font-size: 25px;
+        cursor: pointer;
+      }
+
+      /* Mobile */
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 70px;
         }
 
-        // Keep your existing initializeDashboard(), showUpdateModal(), etc.
-    </script>
-</body>
+        .logo h2 {
+          font-size: 18px;
+        }
+
+        .nav-link {
+          font-size: 12px;
+          text-align: center;
+          padding: 10px 5px;
+        }
+
+        .main {
+          margin-left: 70px;
+          width: calc(100% - 70px);
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .modal-content {
+          width: 90%;
+        }
+      }
+
+      .pay-btn {
+        margin-top: 15px;
+        width: 100%;
+        background: #2563eb;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+
+      .pay-btn:hover {
+        background: #1e40af;
+      }
+
+      .paid-badge {
+        margin-top: 10px;
+        padding: 10px;
+        background: #dcfce7;
+        color: #166534;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h2>HostelHub</h2>
+      </div>
+
+      <a class="nav-link active" href="#"> 🏠 Dashboard </a>
+
+      <a class="nav-link" href="#"> 🛏 Rooms </a>
+
+      <a class="nav-link" href="#"> 📌 Allocation </a>
+
+      <a class="nav-link" href="#"> 💳 Payments </a>
+
+      <a class="nav-link" href="#"> 👤 Profile </a>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Topbar -->
+      <div class="topbar">
+        <h3>Welcome Student 👋</h3>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+
+      <!-- Stats -->
+
+      <div class="stats-grid">
+        <div class="card">
+          <h3>Room Status</h3>
+
+          <p id="roomStatus">Loading...</p>
+        </div>
+
+        <div class="card">
+          <h3>Payment</h3>
+
+          <p id="paymentStatus">Loading...</p>
+        </div>
+
+        <div class="card">
+          <h3>Hostel Block</h3>
+
+          <p id="hostelBlock">--</p>
+        </div>
+
+        <div class="card">
+          <h3>Bed Number</h3>
+
+          <p id="bedNumber">--</p>
+        </div>
+      </div>
+
+      <!-- Main grid -->
+
+      <div class="dashboard-grid">
+        <!-- Rooms -->
+
+        <div class="section">
+          <h2>Available Rooms</h2>
+
+          <div id="roomsContainer">Loading rooms...</div>
+        </div>
+
+        <!-- Allocation -->
+
+        <div class="side-panel">
+          <h2>My Allocation</h2>
+
+          <div id="allocationBox">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room Modal -->
+
+    <div id="roomModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()"> &times; </span>
+
+        <h2 id="modalTitle">Room</h2>
+
+        <div id="modalBeds">Loading beds...</div>
+      </div>
+    </div>
+
+    <script src="../assets/js/app.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+  </body>
 </html>

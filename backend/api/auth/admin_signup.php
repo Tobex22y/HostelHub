@@ -1,8 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
 // api/admin_signup.php  –  Create a new admin user
 // POST: first_name, last_name, username, email, password, confirm_password, role
 
-declare(strict_types=1);
+
 
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/helpers.php';
